@@ -1,0 +1,36 @@
+{
+  "charname": "Grak",
+  "race": "Half-Orc",
+  "gender": "Male",
+  "classes": [{ "id": "1", "class": "Barbarian", "level": "4" }],
+  "saves": [{"id":"1", "save":"fort", "value":"3"},{"id":"2", "save":"reflex", "value":"3"},{"id":"3", "save":"will", "value":"3"}],
+  "actions": [
+    {
+      "id": "1",
+      "title": "Basic Melee",
+      "icon": "./../images/sword.png",
+      "wpn": "Greatsword",
+      "tohit": "+9",
+      "damage": "2d6",
+      "mods": ["two handed", "slashing", "crit x2 (19/20)"]
+    },
+    {
+      "id": "2",
+      "title": "Power Attack",
+      "icon": "./../images/sword.png",
+      "wpn": "Greatsword",
+      "tohit": "+7",
+      "damage": "2d6+4",
+      "mods": ["two handed", "slashing", "crit x2 (19/20)"]
+    },
+    {
+      "id": "3",
+      "title": "Basic Ranged",
+      "icon": "./../images/bow.png",
+      "wpn": "Long Bow",
+      "tohit": "+5",
+      "damage": "1d6",
+      "mods": ["two handed", "piercing", "crit x3 (20)"]
+    }
+  ]
+}

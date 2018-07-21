@@ -31,8 +31,8 @@
       "id": "2",
       "name": "Greatsword",
       "equip": "Off Hand",
-      "left": "525",
-      "top": "140"
+      "left": "325",
+      "top": "80"
     },
     { "id": "3", "name": "", "equip": "Head", "left": "300", "top": "-70" },
     { "id": "4", "name": "", "equip": "Neck", "left": "450", "top": "0" },

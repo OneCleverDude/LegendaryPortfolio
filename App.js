@@ -1,5 +1,8 @@
 import React from "react";
+import Roleplay from "./src/roleplay.js";
 import Combat from "./src/combat.js";
+import Equipment from "./src/equipment.js";
+import SkillSheet from "./src/skillsheet.js";
 
 import {
   Alert,
@@ -8,8 +11,11 @@ import {
   Text,
   View,
   Image,
+  ScrollView,
   ActivityIndicator
 } from "react-native";
+import Swiper from "react-native-swiper";
+import SkillSheet from "./src/skillsheet.js";
 
 export default class App extends React.Component {
   constructor(props) {
@@ -30,6 +36,7 @@ export default class App extends React.Component {
           },
           function() {}
         );
+        //console.warn(responseJson);
       })
       .catch(error => {
         console.error(error);
@@ -43,47 +50,53 @@ export default class App extends React.Component {
         </View>
       );
     }
-    return <Combat character={this.state.dataSource}/>;
+    return (
+      <Swiper style={styles.wrapper} showsButtons={true}>
+          <Equipment character={this.state.dataSource} />
+        <View>
+          <ScrollView>
+            <Roleplay character={this.state.dataSource} />
+          </ScrollView>
+        </View>
+        <View>
+          <ScrollView>
+            <SkillSheet character={this.state.dataSource} />
+          </ScrollView>
+        </View>
+        <View>
+          <Combat character={this.state.dataSource} />
+        </View>
+
+        <View style={styles.slide3}>
+          <Text>Party View (Coming)</Text>
+        </View>
+      </Swiper>
+    );
   }
 }
-
 const styles = StyleSheet.create({
-  container: {
+  wrapper: {},
+  slide1: {
     flex: 1,
-    backgroundColor: "#fff"
-    //alignItems: "center",
-    //justifyContent: "center"
+    justifyContent: "center",
+    alignItems: "center",
+    backgroundColor: "#9DD6EB"
   },
-  topline: {
-    height: 70,
-    backgroundColor: "orange"
-    //alignItems: "center",
-    //justifyContent: "center"
+  slide2: {
+    flex: 1,
+    justifyContent: "center",
+    alignItems: "center",
+    backgroundColor: "#97CAE5"
   },
-  charname: {
-    textShadowColor: "#fff",
-    textShadowOffset: { width: 1, height: 1 },
-    textShadowRadius: 3
+  slide3: {
+    flex: 1,
+    justifyContent: "center",
+    alignItems: "center",
+    backgroundColor: "#92BBD9"
   },
-
-  grid: {
-    borderWidth: 1,
-    borderColor: "orange"
-  },
-  line2: {
-    height: 300,
-    backgroundColor: "white",
-    flexDirection: "row"
-  },
-  line3: {
-    height: 40,
-    backgroundColor: "white",
-    flexDirection: "row"
-  },
-  dividerline: {
-    height: 10,
-    backgroundColor: "orange"
-    //alignItems: "center",
-    //justifyContent: "right"
+  text: {
+    color: "#fff",
+    fontSize: 30,
+    fontWeight: "bold"
   }
 });

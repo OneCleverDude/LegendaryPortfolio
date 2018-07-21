@@ -3,32 +3,33 @@ import Title from "./title.js";
 import HeroSpot from "./herospot.js";
 import StatBlock from "./statblock.js";
 import CombatStats from "./combatstats.js";
-import Action from "./actions.js";
+import Skill from "./skills.js";
 
-import {Alert, Button, StyleSheet, Text, View, ScrollView, Image, ActivityIndicator } from "react-native";
+import {
+  Alert,
+  Button,
+  StyleSheet,
+  Text,
+  View
+} from "react-native";
 
-class Combat extends React.Component {
-  
-
-  renderActions(actions) {
-    const actionItems = [];
-    for (var i = 0; i < actions.length; i++) {
-      actionItems.push(
-        <Action
-          key={"action" + actions[i].id}
-          title={actions[i].title}
-          icon={actions[i].icon}
-          wpn={actions[i].wpn}
-          tohit={actions[i].tohit}
-          damage={actions[i].damage}
+class SkillSheet extends React.Component {
+  renderSkills(skills) {
+    const skillRows = [];
+    for (var i = 0; i < skills.length; i++) {
+      skillRows.push(
+        <Skill
+          key={"skill-" + skills[i].id}
+          title={skills[i].id}
+          mod={skills[i].mod}
+          description={skills[i].description}
         />
       );
     }
-    return actionItems;
+    return skillRows;
   }
 
   render() {
-    
     return (
       <View style={styles.container}>
         <View style={{ height: 20, width: 20 }} />
@@ -40,7 +41,11 @@ class Combat extends React.Component {
           level={this.props.character.classes[0].level}
         />
         <View style={styles.line2}>
-        <HeroSpot fort={this.props.character.saves[0].value} reflex={this.props.character.saves[1].value} will={this.props.character.saves[2].value} />
+          <HeroSpot
+            fort={this.props.character.saves[0].value}
+            reflex={this.props.character.saves[1].value}
+            will={this.props.character.saves[2].value}
+          />
           <StatBlock
             str={this.props.character.abilites[0].value}
             dex={this.props.character.abilites[1].value}
@@ -48,12 +53,24 @@ class Combat extends React.Component {
             int={this.props.character.abilites[3].value}
             wis={this.props.character.abilites[4].value}
             cha={this.props.character.abilites[5].value}
-            strmod={Math.floor((this.props.character.abilites[0].value-10)/2)}
-            dexmod={Math.floor((this.props.character.abilites[1].value-10)/2)}
-            conmod={Math.floor((this.props.character.abilites[2].value-10)/2)}
-            intmod={Math.floor((this.props.character.abilites[3].value-10)/2)}
-            wismod={Math.floor((this.props.character.abilites[4].value-10)/2)}
-            chamod={Math.floor((this.props.character.abilites[5].value-10)/2)}
+            strmod={Math.floor(
+              (this.props.character.abilites[0].value - 10) / 2
+            )}
+            dexmod={Math.floor(
+              (this.props.character.abilites[1].value - 10) / 2
+            )}
+            conmod={Math.floor(
+              (this.props.character.abilites[2].value - 10) / 2
+            )}
+            intmod={Math.floor(
+              (this.props.character.abilites[3].value - 10) / 2
+            )}
+            wismod={Math.floor(
+              (this.props.character.abilites[4].value - 10) / 2
+            )}
+            chamod={Math.floor(
+              (this.props.character.abilites[5].value - 10) / 2
+            )}
           />
           <View style={{ flex: 1 }} />
           <CombatStats />
@@ -68,53 +85,31 @@ class Combat extends React.Component {
           ]}
         >
           <View style={{ flex: 1, justifyContent: "center" }}>
-            <Button onPress={() => { Alert.alert('HP change');}}
-            title = "Heal/Damage"
-            style={{ fontSize: 24, textAlign: "center" }}              
+            <Button
+              onPress={() => {
+                Alert.alert("HP change");
+              }}
+              title="Roll Initiative"
+              style={{ fontSize: 24, textAlign: "center" }}
             />
           </View>
           <View style={{ flex: 1, justifyContent: "center" }}>
             <Text style={{ fontSize: 24, textAlign: "center" }}>
-              Add Condition
+              Take a note
             </Text>
           </View>
           <View style={{ flex: 1, justifyContent: "center" }}>
             <Text style={{ fontSize: 24, textAlign: "center" }}>
-              Add Buff/DeBuff
+              Pick Something for this?
             </Text>
           </View>
         </View>
         <View style={styles.dividerline}>
           <View style={{ flex: 1 }} />
         </View>
-        <View style={{ flexDirection: "row" }}>
-          <View style={{ flex: 9 }}>
-            {this.renderActions(this.props.character.actions)}
+          <View style={{ flex: 1 }}>
+            {this.renderSkills(this.props.character.skills)} 
           </View>
-          <View style={{ flex: 4, alignItems: "flex-start" }}>
-            <View style={{ flex: 1 }}>
-              <Text style={{ fontSize: 16, backgroundColor: "red" }}>
-                Prone:
-              </Text>
-              <Text style={{ fontSize: 12, color: "grey" }}>
-                You are lying on the ground. -4 penalty on melee attack rolls
-                and cannot use ranged weapons (except crossbow). Gain +4 AC
-                bonus against ranged attacks, but take a -4 AC penalty against
-                melee attacks.
-              </Text>
-            </View>
-            <View style={{ flex: 1 }}>
-              <Text style={{ fontSize: 16, backgroundColor: "green" }}>
-                Bull's Strength: (3 rounds)
-              </Text>
-              <Text style={{ fontSize: 12, color: "grey" }}>
-                grants a +4 enhancement bonus to Strength, adding the usual
-                benefits to melee attack rolls (+2), melee damage rolls (+2, +3
-                two handed), and other uses of the Strength modifier.
-              </Text>
-            </View>
-          </View>
-        </View>
       </View>
     );
   }
@@ -160,4 +155,4 @@ const styles = StyleSheet.create({
     //justifyContent: "right"
   }
 });
-export default Combat;
+export default SkillSheet;
